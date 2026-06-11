@@ -906,7 +906,8 @@
     hamburger.classList.toggle('open', open);
   });
   // Contact form with EmailJS
-const contactForm = document.querySelector('#contact form');
+const contactForm = document.querySelector('form[name="contact"]');
+
 if (contactForm) {
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
