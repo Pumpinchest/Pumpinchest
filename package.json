@@ -1,0 +1,9 @@
+{
+  "name": "pumpin-chest",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pumpin' Chest — mobile CPR and first-aid training site",
+  "devDependencies": {
+    "@netlify/functions": "^2.8.1"
+  }
+}
