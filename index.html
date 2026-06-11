@@ -912,14 +912,14 @@ if (contactForm) {
     e.preventDefault();
     const form = e.target;
     const templateParams = {
-      first_name: form.querySelector('[name="first_name"]').value,
-      last_name:  form.querySelector('[name="last_name"]').value,
-      name:       form.querySelector('[name="first_name"]').value + ' ' + form.querySelector('[name="last_name"]').value,
-      email:      form.querySelector('[name="email"]').value,
-      to_email:   form.querySelector('[name="email"]').value,
-      phone:      form.querySelector('[name="phone"]').value,
-      class_type: form.querySelector('[name="class_type"]').value,
-      message:    form.querySelector('[name="message"]').value,
+  first_name: form.querySelector('[name="first-name"]').value,
+last_name:  form.querySelector('[name="last-name"]').value,
+name:       form.querySelector('[name="first-name"]').value + ' ' + form.querySelector('[name="last-name"]').value,
+email:      form.querySelector('[name="email"]').value,
+to_email:   form.querySelector('[name="email"]').value,
+phone:      form.querySelector('[name="phone"]').value,
+
+ 
     };
     emailjs.send("service_ewx0gtn", "Template_s4kbpg8", templateParams)
       .then(() => emailjs.send("service_ewx0gtn", "Template_3hjr8r3", templateParams))
