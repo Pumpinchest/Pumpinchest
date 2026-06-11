@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">emailjs.init("50N5cghiZyyJmTwV");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pumpin' Chest – BLS CPR & First Aid Training | Fort Worth, TX</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -903,6 +905,36 @@
     const open = navLinks.classList.toggle('open');
     hamburger.classList.toggle('open', open);
   });
+  // Contact form with EmailJS
+const contactForm = document.querySelector('#contact form');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const templateParams = {
+      first_name: form.querySelector('[name="first_name"]').value,
+      last_name:  form.querySelector('[name="last_name"]').value,
+      name:       form.querySelector('[name="first_name"]').value + ' ' + form.querySelector('[name="last_name"]').value,
+      email:      form.querySelector('[name="email"]').value,
+      to_email:   form.querySelector('[name="email"]').value,
+      phone:      form.querySelector('[name="phone"]').value,
+      class_type: form.querySelector('[name="class_type"]').value,
+      message:    form.querySelector('[name="message"]').value,
+    };
+    emailjs.send("service_ewx0gtn", "Template_s4kbpg8", templateParams)
+      .then(() => emailjs.send("service_ewx0gtn", "Template_3hjr8r3", templateParams))
+      .then(() => {
+        document.getElementById('form-success').style.display = 'block';
+        document.getElementById('form-error').style.display = 'none';
+        form.reset();
+      })
+      .catch(() => {
+        document.getElementById('form-error').style.display = 'block';
+        document.getElementById('form-success').style.display = 'none';
+      });
+  });
+}
+
 
   // Close nav when a link is clicked
   navLinks.querySelectorAll('a').forEach(link => {
