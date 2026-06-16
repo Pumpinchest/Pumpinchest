@@ -906,39 +906,30 @@
     hamburger.classList.toggle('open', open);
   });
   // Contact form with EmailJS
-const contactForm = document.querySelector('form[name="contact"]');
-if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
+document.getElementById('form-submit-btn').addEventListener('click', function(e) {
     e.preventDefault();
-    const form = e.target;
-    const firstName = form.querySelector('#first-name').value;
-    const lastName = form.querySelector('#last-name').value;
-    const email = form.querySelector('#email').value;
-    const phone = form.querySelector('#phone').value;
-    const classType = form.querySelector('#class-type').value;
-    const message = form.querySelector('#message').value;
+    const firstName = document.getElementById('first-name').value;
+    const email = document.getElementById('email').value;
+    if (!firstName || !email) return;
     const templateParams = {
       first_name: firstName,
-      last_name: lastName,
-      name: firstName + ' ' + lastName,
+      last_name: document.getElementById('last-name').value,
+      name: firstName,
       email: email,
       to_email: email,
-      phone: phone,
-      class_type: classType,
-      message: message,
+      phone: document.getElementById('phone').value,
+      class_type: document.getElementById('class-type').value,
+      message: document.getElementById('message').value,
     };
     emailjs.send("service_ewx0gtn", "Template_s4kbpg8", templateParams)
       .then(() => emailjs.send("service_ewx0gtn", "Template_3hjr8r3", templateParams))
       .then(() => {
         document.getElementById('form-success').style.display = 'block';
         document.getElementById('form-error').style.display = 'none';
-        form.reset();
       })
       .catch((err) => {
-        console.log('EmailJS error:', err);
         document.getElementById('form-error').style.display = 'block';
         document.getElementById('form-success').style.display = 'none';
       });
-  });
-}
+});
 </script>
