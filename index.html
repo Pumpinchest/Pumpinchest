@@ -907,22 +907,26 @@
   });
   // Contact form with EmailJS
 const contactForm = document.querySelector('form[name="contact"]');
-
 if (contactForm) {
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const form = e.target;
+    const firstName = form.querySelector('#first-name').value;
+    const lastName = form.querySelector('#last-name').value;
+    const email = form.querySelector('#email').value;
+    const phone = form.querySelector('#phone').value;
+    const classType = form.querySelector('#class-type').value;
+    const message = form.querySelector('#message').value;
     const templateParams = {
-  first_name: form.querySelector('[name="first-name"]').value,
-last_name:  form.querySelector('[name="last-name"]').value,
-name:       form.querySelector('[name="first-name"]').value + ' ' + form.querySelector('[name="last-name"]').value,
-email:      form.querySelector('[name="email"]').value,
-to_email:   form.querySelector('[name="email"]').value,
-phone: form.querySelector('[name="phone"]').value,
-class_type: form.querySelector('[name="class-type"]').value,
- message: form.querySelector('[name="message"]').value,
-};
-    
+      first_name: firstName,
+      last_name: lastName,
+      name: firstName + ' ' + lastName,
+      email: email,
+      to_email: email,
+      phone: phone,
+      class_type: classType,
+      message: message,
+    };
     emailjs.send("service_ewx0gtn", "Template_s4kbpg8", templateParams)
       .then(() => emailjs.send("service_ewx0gtn", "Template_3hjr8r3", templateParams))
       .then(() => {
@@ -930,63 +934,11 @@ class_type: form.querySelector('[name="class-type"]').value,
         document.getElementById('form-error').style.display = 'none';
         form.reset();
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log('EmailJS error:', err);
         document.getElementById('form-error').style.display = 'block';
         document.getElementById('form-success').style.display = 'none';
       });
   });
 }
-
-
-  // Close nav when a link is clicked
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('open');
-    });
-  });
-
-  // Close nav when clicking outside
-  document.addEventListener('click', e => {
-    if (!document.getElementById('main-nav').contains(e.target)) {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('open');
-    }
-  });
-
-  // Netlify Forms AJAX submission
-  const form       = document.getElementById('contact-form');
-  const submitBtn  = document.getElementById('form-submit-btn');
-  const successMsg = document.getElementById('form-success');
-  const errorMsg   = document.getElementById('form-error');
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
-    successMsg.style.display = 'none';
-    errorMsg.style.display   = 'none';
-
-    try {
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(form)).toString(),
-      });
-
-      if (res.ok) {
-        successMsg.classList.add('success');
-        form.reset();
-        form.style.display = 'none';
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    } catch {
-      errorMsg.classList.add('error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Request';
-    }
-  });
 </script>
-</body>
-</html>
